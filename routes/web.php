@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use \App\Http\Controllers\HomeController;
+use \App\Http\Controllers\AuthorController;
+use \App\Http\Controllers\CategoryController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,7 +15,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::get('/', [HomeController::class, 'index']);
 
-    return view('welcome');
-});
+Route::get('/author/{authorId}', [AuthorController::class, 'index']);
+Route::get('/author/{authorId}/category/{categoryId}', [AuthorController::class, 'category']);
+
+Route::get('/category/{categoryId}', [CategoryController::class, 'index']);
