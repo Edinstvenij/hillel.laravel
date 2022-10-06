@@ -2,7 +2,7 @@
 
 
 @section('title')
-    Home Page
+    Category Page
 @endsection
 
 @section('content')
