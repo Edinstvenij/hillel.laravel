@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Post;
 
-class UserController
+class AuthorController
 {
     public function index($authorId)
     {

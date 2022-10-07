@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\HomeController;
-use \App\Http\Controllers\UserController;
+use \App\Http\Controllers\AuthorController;
 use \App\Http\Controllers\CategoryController;
 /*
 |--------------------------------------------------------------------------
@@ -17,7 +17,7 @@ use \App\Http\Controllers\CategoryController;
 
 Route::get('/', [HomeController::class, 'index']);
 
-Route::get('/author/{authorId}', [UserController::class, 'index']);
-Route::get('/author/{authorId}/category/{categoryId}', [UserController::class, 'category']);
+Route::get('/author/{authorId}', [AuthorController::class, 'index']);
+Route::get('/author/{authorId}/category/{categoryId}', [AuthorController::class, 'category']);
 
 Route::get('/category/{categoryId}', [CategoryController::class, 'index']);
