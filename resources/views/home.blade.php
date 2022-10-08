@@ -6,14 +6,6 @@
 @endsection
 
 @section('content')
-    @isset($_SESSION['success'])
-        <div class="alert alert-info" role="alert">
-            {{   $_SESSION['success']  }}
-        </div>
-        @php
-            unset($_SESSION['success']);
-        @endphp
-    @endisset
     <table class="table table-bordered table-hover table-dark">
         <thead>
         <tr>
@@ -22,6 +14,7 @@
             <th scope="col">Author name</th>
             <th scope="col">Category</th>
             <th scope="col">Body</th>
+            <th scope="col">Tag title</th>
             <th scope="col">Updated_at</th>
         </tr>
         </thead>
@@ -35,7 +28,10 @@
                 <td>{{ $post->users->name }}</td>
                 <td>{{ $post->categories->title }}</td>
                 <td>{{ $post->body }}</td>
-                <td>{{ date_create($post->updated_at)->format('Y-m-d') }}</td>
+                <td>@foreach($post->tags as $tag)
+                        {!!  htmlspecialchars($tag->title, ENT_QUOTES) .'<br>' !!}
+                    @endforeach</td>
+                <td>{{ $post->created_at->isoFormat('YYYY-M-d (dddd)') }}</td>
             </tr>
         @endforeach
         </tbody>

@@ -6,9 +6,9 @@ use App\Models\Category;
 
 class CategoryController
 {
-    public function index($authorId)
+    public function index($categoryId)
     {
-        $categories = Category::find($authorId);
-        return view('category/index', compact('categories'));
+        $category = Category::find($categoryId);
+        return view('category/index', compact('category'));
     }
 }

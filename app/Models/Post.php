@@ -6,9 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
+use App\Models\Tag;
+
 class Post extends Model
 {
-   use SoftDeletes, HasFactory;
+    use SoftDeletes, HasFactory;
 
     public function categories()
     {
@@ -19,4 +21,10 @@ class Post extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'post2tag')->withTimestamps();
+    }
+
 }

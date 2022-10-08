@@ -6,14 +6,7 @@
 @endsection
 
 @section('content')
-    @isset($_SESSION['success'])
-        <div class="alert alert-info" role="alert">
-            {{   $_SESSION['success']  }}
-        </div>
-        @php
-            unset($_SESSION['success']);
-        @endphp
-    @endisset
+    <h1> Category: {{ $category->title }}</h1>
     <table class="table table-bordered table-hover table-dark">
         <thead>
         <tr>
@@ -28,7 +21,7 @@
         </thead>
         <tbody>
         @php($index = 1)
-        @foreach($categories->posts as $post)
+        @foreach($category->posts as $post)
 
             <tr>
                 <th scope="row">{{ $index++ }}</th>
@@ -36,8 +29,8 @@
                 <td>{{ $post->users->name }}</td>
                 <td>{{ $post->categories->title }}</td>
                 <td>{{ $post->body }}</td>
-                <td>{{ $post->created_at }}</td>
-                <td>{{ $post->updated_at }}</td>
+                <td>{{ $post->created_at->isoFormat('YYYY-M-d (dddd)') }}</td>
+                <td>{{ $post->updated_at->diffForHumans() }}</td>
 
             </tr>
         @endforeach

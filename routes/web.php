@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\HomeController;
 use \App\Http\Controllers\AuthorController;
 use \App\Http\Controllers\CategoryController;
+use \App\Http\Controllers\TagController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,5 +20,9 @@ Route::get('/', [HomeController::class, 'index']);
 
 Route::get('/author/{authorId}', [AuthorController::class, 'index']);
 Route::get('/author/{authorId}/category/{categoryId}', [AuthorController::class, 'category']);
+Route::get('/author/{authorId}/category/{categoryId}/tag/{tagId}', [AuthorController::class, 'categoryTag']);
 
 Route::get('/category/{categoryId}', [CategoryController::class, 'index']);
+
+Route::get('/tag/{tagId}', [TagController::class, 'index']);
+
