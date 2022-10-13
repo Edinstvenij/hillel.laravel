@@ -11,6 +11,8 @@
         <a class="list-group-item list-group-item-action" href="{{ route('adminCategory') }}">Category</a>
         <a class="list-group-item list-group-item-action" href="{{ route('adminPost') }}">Post</a>
         <a class="list-group-item list-group-item-action" href="{{ route('adminTag') }}">Tag</a>
+        <br>
+        <a class="list-group-item list-group-item-action" href="{{ route('authLogout') }}">Logout</a>
     </nav>
 
 @endsection

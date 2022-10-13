@@ -6,7 +6,10 @@
 @endsection
 
 @section('content')
-    <h1>Home page</h1>
+    <div class="flex">
+        <h1>Home page</h1>
+        <a href="{{ route('authLogin') }}">login</a>
+    </div>
 
     <nav aria-label="Page navigation example">
         <ul class="pagination">
