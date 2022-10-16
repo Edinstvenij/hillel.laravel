@@ -16,7 +16,7 @@ class AuthController
     public function handleLogin(Request $request)
     {
         $credentials = $request->validate([
-            'email' => ['required'],
+            'email' => ['required', 'email'],
             'password' => ['required', 'min:5'],
         ]);
 

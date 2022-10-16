@@ -10,7 +10,9 @@
     <div class="list-group col-1">
         <a href="{{ route('admin') }}" class="list-group-item list-group-item-action list-group-item-dark">Back</a>
         <a href="{{ route('adminPostCreate') }}" class="list-group-item list-group-item-action list-group-item-success">Create</a>
-        <a href="{{ route('adminPostTrash') }}" class="list-group-item list-group-item-action list-group-item-danger">Trash</a>
+        @can('forceDelete', \App\Models\Post::class)
+            <a href="{{ route('adminPostTrash') }}" class="list-group-item list-group-item-action list-group-item-danger">Trash</a>
+        @endcan
     </div>
     <table class="table mt-2 table-bordered table-hover table-dark">
         <thead>
@@ -39,8 +41,9 @@
                 </th>
                 <th>{{ $post->created_at }}</th>
                 <th>{{ $post->updated_at }}</th>
-                <th><a href="{{ route('adminPostEdit', $post->id) }}">&#9999;</a></th>
-                <th><a href="{{ route('adminPostDelete', $post->id) }}">&#10060;</a></th>
+
+                <th><a @can('update', $post)href=" {{ route('adminPostEdit', $post->id) }}"@endcan>&#9999;</a></th>
+                <th><a @can('gateDelete') href="{{ route('adminPostDelete', $post->id) }}" @endcan>&#10060;</a></th>
             </tr>
         @endforeach
         </tbody>

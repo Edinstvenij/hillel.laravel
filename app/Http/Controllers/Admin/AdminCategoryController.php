@@ -1,11 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Category;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\Category;
-use App\Models\Post;
-use App\Models\Tag;
-use App\Models\User;
 use Illuminate\Http\Request;
 
 class AdminCategoryController
@@ -13,7 +10,7 @@ class AdminCategoryController
     /**
      * block CRUD Categories
      */
-    public function category()
+    public function index()
     {
         $categories = Category::all();
         return view('admin/category/index', compact('categories'));

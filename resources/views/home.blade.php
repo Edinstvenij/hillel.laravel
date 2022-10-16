@@ -8,7 +8,9 @@
 @section('content')
     <div class="flex">
         <h1>Home page</h1>
-        <a href="{{ route('authLogin') }}">login</a>
+        @cannot('login', \App\Models\Post::class)
+            <a href="{{ route('authLogin') }}">login</a>
+        @endcannot
     </div>
 
     <nav aria-label="Page navigation example">
@@ -41,7 +43,9 @@
             <th scope="col">Category</th>
             <th scope="col">Body</th>
             <th scope="col">Tag title</th>
+            <th scope="col">Rating</th>
             <th scope="col">Updated_at</th>
+            <th scope="col">Show</th>
         </tr>
         </thead>
         <tbody>
@@ -58,7 +62,22 @@
                             {!!  htmlspecialchars($tag->title, ENT_QUOTES) .'<br>' !!}
                         </a>
                     @endforeach</td>
+                <td>
+                    @php($allRating = 0)
+                    @if(count($post->ratings) > 1)
+                        @foreach($post->ratings as $rating)
+                            @php($allRating += $rating->rating)
+                        @endforeach
+                        @php($allRating = round($allRating / count($post->ratings), 1))
+                    @else
+                        @foreach($post->ratings as $rating)
+                            @php($allRating = $rating->rating)
+                        @endforeach
+                    @endif
+                    {{ $allRating == 0? 'No rating' : $allRating }}
+                </td>
                 <td>{{ $post->created_at->isoFormat('YYYY-M-d (dddd)') }}</td>
+                <td><a href="{{ route('postShow', $post->id) }}">{{ 'show' }}</a></td>
             </tr>
         @endforeach
         </tbody>

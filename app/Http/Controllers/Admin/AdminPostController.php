@@ -1,26 +1,30 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Post;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class AdminPostController
+class AdminPostController extends Controller
 {
+
+
     /**
      * block CRUD Posts
      */
-    public function post()
+    public function index()
     {
-        $posts = Post::all();
+        $posts = Post::with(['users', 'tags'])->get();
         return view('admin/post/index', compact('posts'));
     }
 
     public function create()
     {
+        $this->authorize('create', Post::class);
         $categories = Category::all();
         $tags = Tag::all();
         $users = User::all();
@@ -45,6 +49,7 @@ class AdminPostController
     public function edit($id)
     {
         $post = Post::find($id);
+        $this->authorize('update', $post);
         $categories = Category::all();
         $tags = Tag::all();
         $users = User::all();
@@ -69,7 +74,9 @@ class AdminPostController
 
     public function delete($id)
     {
-        Post::find($id)->delete();
+        $post = Post::find($id);
+        $this->authorize('delete', $post);
+        $post->delete();
         return redirect()->route('adminPost');
     }
 
@@ -88,6 +95,7 @@ class AdminPostController
     public function forceDelete($id)
     {
         $post = Post::onlyTrashed()->where('id', $id)->first();
+        $this->authorize('forceDelete', $post);
         $post->tags()->detach();
         $post->forceDelete();
         return redirect()->route('adminPostTrash');

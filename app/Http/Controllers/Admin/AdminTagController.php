@@ -1,11 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Tag;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\Category;
-use App\Models\Post;
 use App\Models\Tag;
-use App\Models\User;
 use Illuminate\Http\Request;
 
 class AdminTagController
@@ -13,7 +10,7 @@ class AdminTagController
     /**
      * block CRUD Tags
      */
-    public function tag()
+    public function index()
     {
         $tags = Tag::all();
         return view('admin/tag/index', compact('tags'));

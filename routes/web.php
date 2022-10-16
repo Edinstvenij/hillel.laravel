@@ -1,10 +1,10 @@
 <?php
 
-use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Admin\AdminCategoryController;
 use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Admin\Category\AdminCategoryController;
-use App\Http\Controllers\Admin\Tag\AdminTagController;
-use App\Http\Controllers\Admin\Post\AdminPostController;
+use App\Http\Controllers\Admin\AdminPostController;
+use App\Http\Controllers\Admin\AdminTagController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
@@ -26,6 +26,12 @@ use Illuminate\Support\Facades\Route;
  *  Home page
  */
 Route::get('/', [HomeController::class, 'index'])->name('main');
+
+/**
+ *
+ */
+Route::get('/posts/show/{id}', [HomeController::class, 'show'])->name('postShow');
+Route::post('/posts/addRating', [HomeController::class, 'addRating'])->name('postAddRating');
 
 /**
  *  block Author page
@@ -57,13 +63,12 @@ Route::get('auth/logout', [AuthController::class, 'logout'])->name('authLogout')
 /**
  *  block Admin
  */
-
 Route::middleware(['auth'])->group(function () {
 
     Route::get('/admin', [AdminController::class, 'index'])->name('admin');
 
     //  Category
-    Route::get('/admin/category', [AdminCategoryController::class, 'category'])->name('adminCategory');
+    Route::get('/admin/category', [AdminCategoryController::class, 'index'])->name('adminCategory');
     Route::get('/admin/category/create', [AdminCategoryController::class, 'create'])->name('adminCategoryCreate');
     Route::post('/admin/category/store', [AdminCategoryController::class, 'store'])->name('adminCategoryStore');
     Route::get('/admin/category/edit/{id}', [AdminCategoryController::class, 'edit'])->name('adminCategoryEdit');
@@ -74,7 +79,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin/category/forceDelete/{id}', [AdminCategoryController::class, 'forceDelete'])->name('adminCategoryForceDelete');
 
     // Tag
-    Route::get('/admin/tag', [AdminTagController::class, 'tag'])->name('adminTag');
+    Route::get('/admin/tag', [AdminTagController::class, 'index'])->name('adminTag');
     Route::get('/admin/tag/create', [AdminTagController::class, 'create'])->name('adminTagCreate');
     Route::post('/admin/tag/store', [AdminTagController::class, 'store'])->name('adminTagStore');
     Route::get('/admin/tag/edit/{id}', [AdminTagController::class, 'edit'])->name('adminTagEdit');
@@ -85,7 +90,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin/tag/forceDelete/{id}', [AdminTagController::class, 'forceDelete'])->name('adminTagForceDelete');
 
     //  Post
-    Route::get('/admin/post', [AdminPostController::class, 'post'])->name('adminPost');
+    Route::get('/admin/post', [AdminPostController::class, 'index'])->name('adminPost');
     Route::get('/admin/post/create', [AdminPostController::class, 'create'])->name('adminPostCreate');
     Route::post('/admin/post/store', [AdminPostController::class, 'store'])->name('adminPostStore');
     Route::get('/admin/post/edit/{id}', [AdminPostController::class, 'edit'])->name('adminPostEdit');

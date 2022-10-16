@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\Tag;
+use App\Models\Rating;
 
 class DatabaseSeeder extends Seeder
 {
@@ -29,8 +30,14 @@ class DatabaseSeeder extends Seeder
         });
 
         $posts->each(function ($post) use ($tags) {
-            $post->tags()->attach($tags->random(rand(5,10))->pluck('id'));
+            $post->tags()->attach($tags->random(rand(5, 10))->pluck('id'));
             $post->save();
+        });
+
+        Rating::factory(40)->make()->each(function ($rating) use ($posts) {
+            $rating->ratingable_id = $posts->random()->id;
+            $rating->ratingable_type = Post::class;
+            $rating->save();
         });
     }
 }

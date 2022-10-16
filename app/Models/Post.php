@@ -35,4 +35,8 @@ class Post extends Model
         return $this->belongsToMany(Tag::class, 'post2tag')->withTimestamps();
     }
 
+    public function ratings()
+    {
+        return $this->morphMany(Rating::class, 'ratingable');
+    }
 }
