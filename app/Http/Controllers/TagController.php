@@ -11,7 +11,7 @@ class TagController
     public function index($tagId)
     {
         $tag = Tag::find($tagId);
-        $posts = Post::whereHas('tags', function ($tag) use ($tagId){
+        $posts = Post::with('categories', 'tags', 'users')->whereHas('tags', function ($tag) use ($tagId) {
             $tag->where('tag_id', $tagId);
         })->get();
 

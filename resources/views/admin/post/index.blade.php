@@ -30,23 +30,24 @@
         </thead>
         <tbody>
         @foreach($posts as $post)
-            <tr>
-                <th>{{ $post->id }}</th>
-                <th>{{ $post->title }}</th>
-                <th>{{ $post->body }}</th>
-                <th>{{ $post->users->name }}</th>
-                <th>@foreach($post->tags as $tag)
-                        {!! $tag->title . '<br>' !!}
-                    @endforeach
-                </th>
-                <th>{{ $post->created_at }}</th>
-                <th>{{ $post->updated_at }}</th>
+            @can('viewAny', $post)
+                <tr>
+                    <th>{{ $post->id }}</th>
+                    <th>{{ $post->title }}</th>
+                    <th>{{ $post->body }}</th>
+                    <th>{{ $post->users->name }}</th>
+                    <th>@foreach($post->tags as $tag)
+                            {!! $tag->title . '<br>' !!}
+                        @endforeach
+                    </th>
+                    <th>{{ $post->created_at }}</th>
+                    <th>{{ $post->updated_at }}</th>
 
-                <th><a @can('update', $post)href=" {{ route('adminPostEdit', $post->id) }}"@endcan>&#9999;</a></th>
-                <th><a @can('gateDelete') href="{{ route('adminPostDelete', $post->id) }}" @endcan>&#10060;</a></th>
-            </tr>
+                    <th><a @can('update', $post)href=" {{ route('adminPostEdit', $post->id) }}"@endcan>&#9999;</a></th>
+                    <th><a @can('gateDelete') href="{{ route('adminPostDelete', $post->id) }}" @endcan>&#10060;</a></th>
+                </tr>
+            @endcan
         @endforeach
         </tbody>
     </table>
-
 @endsection

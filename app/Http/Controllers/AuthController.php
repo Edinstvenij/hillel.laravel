@@ -5,12 +5,20 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Http;
 
 class AuthController
 {
     public function login()
     {
-        return view('auth/form');
+        $parametrs = [
+            'client_id' => getenv('OAUTH_GITHUB_CLIENT_ID'),
+            'redirect_uri' => route('oauthGithub'),
+            'scope' => 'user'
+        ];
+        $url = 'https://github.com/login/oauth/authorize';
+        $urlGithub = $url . '?' . http_build_query($parametrs);
+        return view('auth/form', compact('urlGithub'));
     }
 
     public function handleLogin(Request $request)

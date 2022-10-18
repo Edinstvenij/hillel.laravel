@@ -11,7 +11,7 @@ class AuthorController
 {
     public function index($authorId)
     {
-        $author = User::find($authorId);
+        $author = User::with('posts.categories')->find($authorId);
         return view('author/index', compact('author'));
     }
 

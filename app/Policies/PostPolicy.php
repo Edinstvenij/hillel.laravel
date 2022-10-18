@@ -30,9 +30,9 @@ class PostPolicy
      * @param \App\Models\User $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(User $user)
+    public function viewAny(User $user, Post $post)
     {
-        return true;
+        return $user->id === $post->users->id || $user->role_name === 'admin';
     }
 
     /**

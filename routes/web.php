@@ -10,6 +10,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TagController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\OauthGithubController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,6 +55,7 @@ Route::get('/tag/{tagId}', [TagController::class, 'index'])->name('tag');
 /**
  *  block Auth
  */
+Route::get('oauth/github/callback', [OauthGithubController::class, 'callback'])->name('oauthGithub');
 Route::middleware(['guest'])->group(function () {
     Route::get('auth/login', [AuthController::class, 'login'])->name('authLogin');
     Route::post('auth/handleLogin', [AuthController::class, 'handleLogin'])->name('authHandleLogin');
@@ -92,7 +94,7 @@ Route::middleware(['auth'])->group(function () {
     //  Post
     Route::get('/admin/post', [AdminPostController::class, 'index'])->name('adminPost');
     Route::get('/admin/post/create', [AdminPostController::class, 'create'])->name('adminPostCreate');
-    Route::post('/admin/post/store', [AdminPostController::class, 'store'])->name('adminPostStore');
+    Route::post('/admin/post/store', [AdminPostController::class, 'store'])->name('adminPostStore')->can('create');
     Route::get('/admin/post/edit/{id}', [AdminPostController::class, 'edit'])->name('adminPostEdit');
     Route::post('/admin/post/update', [AdminPostController::class, 'update'])->name('adminPostUpdate');
     Route::get('/admin/post/delete/{id}', [AdminPostController::class, 'delete'])->name('adminPostDelete');

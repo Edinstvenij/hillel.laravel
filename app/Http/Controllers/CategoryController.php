@@ -8,7 +8,7 @@ class CategoryController
 {
     public function index($categoryId)
     {
-        $category = Category::find($categoryId);
+        $category = Category::with('posts.users','posts.categories')->find($categoryId);
         return view('category/index', compact('category'));
     }
 }

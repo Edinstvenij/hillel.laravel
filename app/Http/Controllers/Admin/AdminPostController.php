@@ -24,7 +24,7 @@ class AdminPostController extends Controller
 
     public function create()
     {
-        $this->authorize('create', Post::class);
+        $this->authorize('create');
         $categories = Category::all();
         $tags = Tag::all();
         $users = User::all();
@@ -75,9 +75,9 @@ class AdminPostController extends Controller
     public function delete($id)
     {
         $post = Post::find($id);
-        $this->authorize('delete', $post);
+//        $this->authorize('delete', $post); перешол на Gate
         $post->delete();
-        return redirect()->route('adminPost');
+        return redirect()->back();
     }
 
     public function trash()
@@ -89,7 +89,7 @@ class AdminPostController extends Controller
     public function restore($id)
     {
         Post::onlyTrashed()->where('id', $id)->restore();
-        return redirect()->route('adminPostTrash');
+        return redirect()->back();
     }
 
     public function forceDelete($id)
@@ -98,7 +98,7 @@ class AdminPostController extends Controller
         $this->authorize('forceDelete', $post);
         $post->tags()->detach();
         $post->forceDelete();
-        return redirect()->route('adminPostTrash');
+        return redirect()->back();
 
     }
 }
