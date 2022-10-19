@@ -19,7 +19,6 @@ class OauthGithubController
             'redirect_uri' => route('oauthGithub'),
         ];
         $url = 'https://github.com/login/oauth/access_token';
-        $urlGithub = $url . '?' . http_build_query($parametrs);
 
         $response = Http::withHeaders([
             'Accept' => 'application/json'
@@ -33,12 +32,18 @@ class OauthGithubController
         $userInfo = Http::withToken($response->json()['access_token'])->get($url);
         $userInfo = $userInfo->json();
 
-//    $user = User::where('email', $userInfo['email'])->first();
-        $user = User::where('name', $userInfo['login'])->first(); // Сделал так потму что нет ни имени ни логина у меня. Просто что бы заходило и выходило
+        if (empty($userInfo['email'])) {
+            $url = 'https://api.github.com/user/emails';
+            $emailInfo = Http::withToken($response->json()['access_token'])->get($url);
+            $userInfo['email'] = $emailInfo->json()[0]['email'];
+        }
+
+
+        $user = User::where('email', $userInfo['email'])->first();
         if (empty($user)) {
             $user = User::create([
                 'name' => $userInfo['name'] ?? $userInfo['login'],
-                'email' => $userInfo['email'] ?? '123@gmail.com',
+                'email' => $userInfo['email'],
                 'password' => Hash::make($userInfo['email'] . '_salt')
             ]);
         }
