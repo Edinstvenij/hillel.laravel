@@ -4,9 +4,7 @@ namespace App\Services\UserAgent;
 
 interface UserAgentInterface
 {
-//    public function parser(string $userAgent): void;
-
-    public function getBrowser();
+    public function getBrowser(): ?string;
 
     public function getSystem(): ?string;
 }
