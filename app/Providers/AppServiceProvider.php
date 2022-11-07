@@ -23,8 +23,8 @@ class AppServiceProvider extends ServiceProvider
         });
 
         $this->app->singleton(UserAgentInterface::class, function () {
-//          return new JenssegersAgentService();
-          return new PhpUserAgentService();
+          return new JenssegersAgentService();
+//          return new PhpUserAgentService();
         });
     }
 

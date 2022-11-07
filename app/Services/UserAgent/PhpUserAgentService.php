@@ -7,12 +7,17 @@ use donatj\UserAgent\UserAgentParser;
 class PhpUserAgentService implements UserAgentInterface
 {
 
+    protected $userAgentObj;
     protected $userAgent;
 
     public function __construct()
     {
-        $this->userAgent = new UserAgentParser();
-        $this->userAgent = $this->userAgent->parse(request()->userAgent());
+        $this->userAgentObj = new UserAgentParser();
+    }
+
+    public function parser($userAgent): void
+    {
+        $this->userAgent = $this->userAgentObj->parse($userAgent);
     }
 
     public function getBrowser(): ?string

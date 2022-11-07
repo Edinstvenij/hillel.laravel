@@ -15,6 +15,7 @@ class GeoIpController
         $reader->parser($ip);
         $city = $reader->getCity();
         $country = $reader->getCountry();
+        $userAgent->parser(request()->userAgent());
         $browser = $userAgent->getBrowser();
         $system = $userAgent->getSystem();
 
