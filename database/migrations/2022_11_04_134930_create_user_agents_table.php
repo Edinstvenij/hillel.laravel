@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('user_agents', function (Blueprint $table) {
             $table->id();
-            $table->string('userId');
+            $table->string('user_id');
             $table->string('city');
             $table->string('country');
             $table->string('browser');

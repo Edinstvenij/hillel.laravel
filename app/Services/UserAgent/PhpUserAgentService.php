@@ -12,7 +12,7 @@ class PhpUserAgentService implements UserAgentInterface
     public function __construct()
     {
         $this->userAgent = new UserAgentParser();
-        $this->userAgent = $this->userAgent->parse();
+        $this->userAgent = $this->userAgent->parse(request()->userAgent());
     }
 
     public function getBrowser(): ?string

@@ -11,22 +11,29 @@ class GeoIpController
 
     public function index(GeoServiceInterface $reader, UserAgentInterface $userAgent)
     {
-        $ip = '62.16.4.185';
-//        $ip = request()->ip();
+        $ip = request()->ip();
         $reader->parser($ip);
         $city = $reader->getCity();
         $country = $reader->getCountry();
         $browser = $userAgent->getBrowser();
         $system = $userAgent->getSystem();
 
-        $param = [
-            'userId' => request()->ip(),
+        $options = [
+            'user_id' => $ip,
             'city' => $city,
             'country' => $country,
             'browser' => $browser,
             'system' => $system
         ];
-        UserAgent::create($param);
-    }
 
+        $isOptionEmpty = false;
+        foreach ($options as $option) {
+            if ($option == null) {
+                $isOptionEmpty = true;
+            }
+        }
+        if ($isOptionEmpty === false) {
+            UserAgent::create($options);
+        }
+    }
 }

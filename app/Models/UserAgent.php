@@ -10,7 +10,7 @@ class UserAgent extends Model
     use HasFactory;
 
     protected $fillable = [
-        'userId',
+        'user_id',
         'city',
         'country',
         'browser',

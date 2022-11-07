@@ -29,11 +29,17 @@ class MaxmindService implements GeoServiceInterface
 
     public function getCity(): ?string
     {
-        return $this->_data->city->name;
+        if ($this->_data !== null) {
+            return $this->_data->city->name;
+        }
+        return null;
     }
 
     public function getCountry(): ?string
     {
-        return $this->_data->country->name;
+        if ($this->_data !== null) {
+            return $this->_data->country->name;
+        }
+        return null;
     }
 }
