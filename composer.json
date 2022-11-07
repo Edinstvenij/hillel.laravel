@@ -14,7 +14,8 @@
         "it-hillel-dz-19/php-user-agent-service": "^1.0",
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
-        "laravel/tinker": "^2.7"
+        "laravel/tinker": "^2.7",
+        "it-hillel-dz-19/jenssegers-agent-service": "*"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.7",
@@ -28,6 +29,7 @@
     },
     "repositories": [
         {
+            "name": "it-hillel-dz-19/jenssegers-agent-service",
             "type": "github",
             "url": "https://github.com/Edinstvenij/jenssegersAgentService"
         }

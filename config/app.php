@@ -195,7 +195,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-        itHillelDz19\PhpUserAgentService\PhpUserAgentProvaider::class,
+        // itHillelDz19\PhpUserAgentService\PhpUserAgentProvaider::class,
+        \itHillelDz19\JenssegersAgentService\JenssegersAgentProvaider::class,
 
 
     ],
