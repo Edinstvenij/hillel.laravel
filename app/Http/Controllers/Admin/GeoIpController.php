@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\UserAgent;
 use App\Services\Geo\GeoServiceInterface;
-use App\Services\UserAgent\UserAgentInterface;
+use itHillelDz19\UserAgentInterface\UserAgentInterface;
+use itHillelDz19\JenssegersAgentService;
 
 class GeoIpController
 {
