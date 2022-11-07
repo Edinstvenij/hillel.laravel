@@ -9,6 +9,7 @@
         "donatj/phpuseragentparser": "^1.7",
         "geoip2/geoip2": "~2.0",
         "guzzlehttp/guzzle": "^7.5",
+        "jenssegers/agent": "^2.6",
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7"
