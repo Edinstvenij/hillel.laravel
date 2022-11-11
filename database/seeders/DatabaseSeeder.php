@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Jobs\ProcessUserAgent;
 use Illuminate\Database\Seeder;
 
 use App\Models\User;
@@ -39,5 +40,9 @@ class DatabaseSeeder extends Seeder
             $rating->ratingable_type = Post::class;
             $rating->save();
         });
+
+        for ($index = 0, $count = 60; $index < $count; $index++) {
+            ProcessUserAgent::dispatch(fake()->ipv4, fake()->userAgent())->onQueue('parsing');
+        }
     }
 }
