@@ -9,7 +9,7 @@ class GeoIpController
 
     public function index()
     {
-        ProcessUserAgent::dispatch(request()->ip(), request()->userAgent());
+        ProcessUserAgent::dispatch(request()->ip(), request()->userAgent())->onQueue('parsing');
         return redirect()->route('main');
     }
 }
