@@ -30,11 +30,11 @@ class ProcessUserAgent implements ShouldQueue
      * @var string $reader string user ip
      * @var string $userAgent string user agent
      */
-    public function __construct(string $ip, GeoServiceInterface $reader, UserAgentInterface $userAgent)
+    public function __construct(string $ip)
     {
         $this->ip = $ip;
-        $this->reader = $reader;
-        $this->userAgent = $userAgent;
+//        $this->reader = $reader;
+//        $this->userAgent = $userAgent;
     }
 
     /**
@@ -42,14 +42,15 @@ class ProcessUserAgent implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(GeoServiceInterface $reader, UserAgentInterface $userAgent)
     {
-        $this->reader->parser($this->ip);
-        $city = $this->reader->getCity();
-        $country = $this->reader->getCountry();
-        $this->userAgent->parser(request()->userAgent());
-        $browser = $this->userAgent->getBrowser();
-        $system = $this->userAgent->getSystem();
+        $reader->parser($this->ip);
+        $city = $reader->getCity();
+        $country = $reader->getCountry();
+
+        $userAgent->parser(request()->userAgent());
+        $browser = $userAgent->getBrowser();
+        $system = $userAgent->getSystem();
 
         $options = [
             'user_id' => $this->ip,
@@ -59,14 +60,12 @@ class ProcessUserAgent implements ShouldQueue
             'system' => $system
         ];
 
-        $isOptionEmpty = false;
         foreach ($options as $option) {
-            if ($option == null) {
-                $isOptionEmpty = true;
+            if ($option === null) {
+                echo $option . 'is empty';
+                $option = 'Empty';
             }
         }
-        if ($isOptionEmpty === false) {
-            UserAgent::create($options);
-        }
+        UserAgent::create($options);
     }
 }
