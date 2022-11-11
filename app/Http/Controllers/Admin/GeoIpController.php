@@ -11,7 +11,7 @@ class GeoIpController
 
     public function index()
     {
-        ProcessUserAgent::dispatch(request()->ip());
+        ProcessUserAgent::dispatch("50.7.93.27", request()->userAgent());
         return redirect()->route('main');
     }
 }

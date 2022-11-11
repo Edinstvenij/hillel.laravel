@@ -27,14 +27,12 @@ class ProcessUserAgent implements ShouldQueue
      *
      * @return void
      * @var string $ip user ip
-     * @var string $reader string user ip
      * @var string $userAgent string user agent
      */
-    public function __construct(string $ip)
+    public function __construct(string $ip, string $userAgent)
     {
         $this->ip = $ip;
-//        $this->reader = $reader;
-//        $this->userAgent = $userAgent;
+        $this->userAgent = $userAgent;
     }
 
     /**
@@ -48,7 +46,7 @@ class ProcessUserAgent implements ShouldQueue
         $city = $reader->getCity();
         $country = $reader->getCountry();
 
-        $userAgent->parser(request()->userAgent());
+        $userAgent->parser($this->userAgent);
         $browser = $userAgent->getBrowser();
         $system = $userAgent->getSystem();
 
@@ -60,10 +58,10 @@ class ProcessUserAgent implements ShouldQueue
             'system' => $system
         ];
 
-        foreach ($options as $option) {
+        foreach ($options as $key => $option) {
             if ($option === null) {
                 echo $option . 'is empty';
-                $option = 'Empty';
+                $options[$key] = 'Empty';
             }
         }
         UserAgent::create($options);
