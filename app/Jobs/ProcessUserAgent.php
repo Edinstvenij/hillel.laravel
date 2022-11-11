@@ -47,7 +47,6 @@ class ProcessUserAgent implements ShouldQueue
         $this->reader->parser($this->ip);
         $city = $this->reader->getCity();
         $country = $this->reader->getCountry();
-
         $this->userAgent->parser(request()->userAgent());
         $browser = $this->userAgent->getBrowser();
         $system = $this->userAgent->getSystem();
@@ -67,7 +66,7 @@ class ProcessUserAgent implements ShouldQueue
             }
         }
         if ($isOptionEmpty === false) {
-        UserAgent::create($options);
+            UserAgent::create($options);
         }
     }
 }

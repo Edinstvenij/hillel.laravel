@@ -13,10 +13,14 @@ class GeoIpController
     public function index(GeoServiceInterface $reader, UserAgentInterface $userAgent)
     {
         ProcessUserAgent::dispatch("50.7.93.27", $reader, $userAgent);
+
+
 //        $ip = request()->ip();
+//        $ip = "50.7.93.27";
 //        $reader->parser($ip);
 //        $city = $reader->getCity();
 //        $country = $reader->getCountry();
+//        $userAgent->parser(request()->userAgent());
 //        $browser = $userAgent->getBrowser();
 //        $system = $userAgent->getSystem();
 //
