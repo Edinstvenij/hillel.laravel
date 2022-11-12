@@ -20,6 +20,7 @@ class ProcessUserAgent implements ShouldQueue
     public $ip;
     public $reader;
     public $userAgent;
+    public $userAgentObj;
 
 
     /**
@@ -28,11 +29,15 @@ class ProcessUserAgent implements ShouldQueue
      * @return void
      * @var string $ip user ip
      * @var string $userAgent string user agent
+     * @var UserAgentInterface $userAgentObj
+     * @var GeoServiceInterface $reader
      */
-    public function __construct(string $ip, string $userAgent)
+    public function __construct(string $ip, string $userAgent, GeoServiceInterface $reader, UserAgentInterface $userAgentObj)
     {
         $this->ip = $ip;
         $this->userAgent = $userAgent;
+        $this->reader = $reader;
+        $this->userAgentObj = $userAgentObj;
     }
 
     /**
@@ -40,15 +45,15 @@ class ProcessUserAgent implements ShouldQueue
      *
      * @return void
      */
-    public function handle(GeoServiceInterface $reader, UserAgentInterface $userAgent)
+    public function handle()
     {
-        $reader->parser($this->ip);
-        $city = $reader->getCity();
-        $country = $reader->getCountry();
+        $this->reader->parser($this->ip);
+        $city = $this->reader->getCity();
+        $country = $this->reader->getCountry();
 
-        $userAgent->parser($this->userAgent);
-        $browser = $userAgent->getBrowser();
-        $system = $userAgent->getSystem();
+        $this->userAgentObj->parser($this->userAgent);
+        $browser = $this->userAgentObj->getBrowser();
+        $system = $this->userAgentObj->getSystem();
 
         $options = [
             'user_id' => $this->ip,

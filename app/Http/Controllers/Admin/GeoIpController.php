@@ -3,13 +3,18 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Jobs\ProcessUserAgent;
+use App\Services\Geo\GeoServiceInterface;
+use itHillelDz19\UserAgentInterface\UserAgentInterface;
 
 class GeoIpController
 {
 
-    public function index()
+    public function index(GeoServiceInterface $reader, UserAgentInterface $userAgentObj)
     {
-        ProcessUserAgent::dispatch(request()->ip(), request()->userAgent())->onQueue('parsing');
+        $ip = request()->ip();
+        $userAgent = request()->userAgent();
+
+        ProcessUserAgent::dispatch($ip, $userAgent, $reader, $userAgentObj)->onQueue('parsing');
         return redirect()->route('main');
     }
 }
