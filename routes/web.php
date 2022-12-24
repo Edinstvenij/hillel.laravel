@@ -12,6 +12,7 @@ use App\Http\Controllers\Auth\OauthGithubController;
 use App\Http\Controllers\TagController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\GeoIpController;
+use Dcblogdev\Dropbox\Facades\Dropbox;
 
 /*
 |--------------------------------------------------------------------------
@@ -118,5 +119,18 @@ Route::middleware(['auth'])->prefix('/admin')->group(function () {
         Route::get('/trash', [AdminPostController::class, 'trash'])->name('adminPostTrash');
         Route::get('/restore/{id}', [AdminPostController::class, 'restore'])->name('adminPostRestore');
         Route::get('/forceDelete/{id}', [AdminPostController::class, 'forceDelete'])->name('adminPostForceDelete');
+    });
+});
+
+Route::group(['middleware' => ['web']], function () {
+
+    Route::get('dropbox', [HomeController::class, 'test']);
+
+    Route::get('dropbox/connect', function () {
+        return Dropbox::connect();
+    });
+
+    Route::get('dropbox/disconnect', function () {
+        return Dropbox::disconnect('app/dropbox');
     });
 });
